@@ -8,7 +8,6 @@ import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.all._
 import org.scalajs.dom
 import org.scalajs.dom.raw.{Position, PositionError}
-
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.scalajs.js
 import scala.scalajs.js.Date
@@ -23,7 +22,7 @@ object HomePage {
   case class State(lat : Double = 0, lng : Double = 0,
                    disableStartButton : Boolean = false,
                    disableStopButton : Boolean = true ,
-                   status : String = "not recording",
+                   status : String = "not tracking",
                    message : String = "" )
 
   case class Backend(t : BackendScope[Unit,State]) {
@@ -62,13 +61,12 @@ object HomePage {
                 ))
               }
               case Failure(ex) => {
-                println(s" Error while getting ${ex.asInstanceOf[PouchDBException].err}")
                 t.modState(_.copy(status = "Error occurred while getting doc from PouchDB"))
               }
             }
           }
           case Failure(ex) => {
-            println(s" Error while saving ${ex.asInstanceOf[PouchDBException].err}")
+            js.Dynamic.global.perror = ex.asInstanceOf[PouchDBException].err
             t.modState(_.copy(status = "Error occurred while saving doc to PouchDB"))
           }
         }
