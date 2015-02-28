@@ -39,7 +39,7 @@ object ReactButton {
   class Backend(t: BackendScope[Props, State]) {
 
     def onButtonClick(e: ReactEventI) = {
-      if (t.props.onButtonClick != null) t.props.onButtonClick(e)
+      if (!t.props.disable && t.props.onButtonClick != null) t.props.onButtonClick(e)
       e.preventDefault()
     }
 
