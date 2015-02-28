@@ -79,7 +79,7 @@ object HomePage {
     def handleGeolocationError(error : PositionError) = {
       t.modState(_.copy(
       disableStartButton = true,
-      status = s"Error Code : ${error.code} Message : ${error.message }"
+      status = s"Cool you're the man!, Error Code : ${error.code} Message : ${error.message }"
       ))
     }
   }
